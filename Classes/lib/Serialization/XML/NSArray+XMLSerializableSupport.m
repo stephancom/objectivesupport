@@ -8,25 +8,25 @@
 
 #import "NSArray+XMLSerializableSupport.h"
 #import "NSObject+XMLSerializableSupport.h"
-
+#import "ORBinaryData.h"
 
 @implementation NSArray (XMLSerializableSupport)
 
-- (NSString *)toXMLValue {
+- (NSString *)toXMLValueWithAttachments:(NSMutableArray *)attachments {
 	NSMutableString *result = [NSMutableString string];
 	
 	for (id element in self) {
-		[result appendString:[element toXMLElement]];
+		[result appendString:[element toXMLElementCaptureAttachments:attachments]];
 	}
 	
 	return result;
 }
 
 - (NSString *)toXMLElementAs:(NSString *)rootName excludingInArray:(NSArray *)exclusions
-						withTranslations:(NSDictionary *)keyTranslations {
+						withTranslations:(NSDictionary *)keyTranslations captureAttachments:(NSMutableArray *)attachments{
 	NSMutableString *elementValue = [NSMutableString string];
 	for (id element in self) {
-		[elementValue appendString:[element toXMLElementAs:[[element class] xmlElementName] excludingInArray:exclusions withTranslations:keyTranslations]];
+		[elementValue appendString:[element toXMLElementAs:[[element class] xmlElementName] excludingInArray:exclusions withTranslations:keyTranslations captureAttachments:attachments]];
 	}
 	return [[self class] buildXmlElementAs:rootName withInnerXml:elementValue andType:@"array"];
 }

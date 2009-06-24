@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 
 @interface NSArray (XMLSerializableSupport)
-- (NSString *)toXMLValue;
+- (NSString *)toXMLValueWithAttachments:(NSMutableArray *)attachments;
 @end

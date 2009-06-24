@@ -10,7 +10,7 @@
 
 @implementation NSNull (XMLSerializableSupport)
 
-- (NSString *)toXMLValue {
+- (NSString *)toXMLValueWithAttachments:(NSMutableArray *)attachments {
 	return @"";
 }
 

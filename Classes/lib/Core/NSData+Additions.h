@@ -9,4 +9,5 @@
 
 - (BOOL) hasPrefix:(NSData *) prefix;
 - (BOOL) hasPrefixBytes:(void *) prefix length:(unsigned int) length;
+
 @end

@@ -20,14 +20,14 @@
 	
 }
 
-- (NSString *)toXMLValue {
+- (NSString *)toXMLValueWithAttachments:(NSMutableArray *)attachments {
 	NSString *temp = [self gsub:[NSDictionary dictionaryWithObject:@"&amp;" forKey:@"&"]];
 	NSDictionary* escapeChars = [NSDictionary dictionaryWithObjectsAndKeys:@"&quot;",@"\"",@"&apos;",@"'",@"&lt;",@"<",@"&gt;",@">",nil];
 	return [temp gsub:escapeChars];
 }
 - (NSString *)toXMLElementAs:(NSString *)rootName excludingInArray:(NSArray *)exclusions
-			withTranslations:(NSDictionary *)keyTranslations {
-	return [[self class] buildXmlElementAs:rootName withInnerXml:[self toXMLValue]];
+			withTranslations:(NSDictionary *)keyTranslations captureAttachments:(NSMutableArray *)attachments {
+	return [[self class] buildXmlElementAs:rootName withInnerXml:[self toXMLValueWithAttachments:attachments]];
 }
 
 @end

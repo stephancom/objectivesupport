@@ -7,8 +7,10 @@
 //
 
 #import "XMLSerializable.h"
+#import "SerializationConfig.h"
 #import "CoreSupport.h"
 #import "NSObject+XMLSerializableSupport.h"
 #import "NSNull+XMLSerializableSupport.h"
 #import "NSDate+XMLSerializableSupport.h"
 #import "NSString+XMLSerializableSupport.h"
+#import "ORBinaryData+XMLSerializableSupport.h"

@@ -7,5 +7,5 @@
 //
 
 @interface NSNull (XMLSerializableSupport)
-- (NSString *)toXMLValue;
+- (NSString *)toXMLValueWithAttachments:(NSMutableArray *)attachments;
 @end

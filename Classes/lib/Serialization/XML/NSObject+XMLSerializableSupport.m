@@ -59,8 +59,8 @@
 	return [[self class] buildXmlElementAs:rootName withInnerXml:value andType:nil];
 }
 
-+ (NSString *)buildXMLElementAs:(NSString *)rootName withValue:(NSObject *)value {
-	return [[self class] buildXmlElementAs:rootName withInnerXml:[value toXMLValue] andType:[self xmlTypeFor:value]];
++ (NSString *)buildXMLElementAs:(NSString *)rootName withValue:(NSObject *)value captureAttachments:(NSMutableArray *)attachments{
+	return [[self class] buildXmlElementAs:rootName withInnerXml:[value toXMLValueWithAttachments:attachments] andType:[self xmlTypeFor:value]];
 }
 
 + (NSString *)xmlElementName {
@@ -70,32 +70,32 @@
 
 # pragma mark XMLSerializable implementation methods
 
-- (NSString *)toXMLElement {
-	return [self toXMLElementAs:[[self class] xmlElementName] excludingInArray:[NSArray array] withTranslations:[NSDictionary dictionary]];
+- (NSString *)toXMLElementCaptureAttachments: (NSMutableArray *)attachments {
+	return [self toXMLElementAs:[[self class] xmlElementName] excludingInArray:[NSArray array] withTranslations:[NSDictionary dictionary] captureAttachments:attachments];
 }
 
-- (NSString *)toXMLElementExcluding:(NSArray *)exclusions {
-	return [self toXMLElementAs:[[self class] xmlElementName] excludingInArray:exclusions withTranslations:[NSDictionary dictionary]];  
+- (NSString *)toXMLElementExcluding:(NSArray *)exclusions captureAttachments:(NSMutableArray *)attachments {
+	return [self toXMLElementAs:[[self class] xmlElementName] excludingInArray:exclusions withTranslations:[NSDictionary dictionary] captureAttachments:attachments];  
 }
 
-- (NSString *)toXMLElementAs:(NSString *)rootName {
-	return [self toXMLElementAs:rootName excludingInArray:[NSArray array] withTranslations:[NSDictionary dictionary]];
+- (NSString *)toXMLElementAs:(NSString *)rootName captureAttachments:(NSMutableArray *)attachments{
+	return [self toXMLElementAs:rootName excludingInArray:[NSArray array] withTranslations:[NSDictionary dictionary] captureAttachments:attachments];
 }
 
-- (NSString *)toXMLElementAs:(NSString *)rootName excludingInArray:(NSArray *)exclusions {
-	return [self toXMLElementAs:rootName excludingInArray:exclusions withTranslations:[NSDictionary dictionary]];
+- (NSString *)toXMLElementAs:(NSString *)rootName excludingInArray:(NSArray *)exclusions captureAttachments:(NSMutableArray *) attachments{
+	return [self toXMLElementAs:rootName excludingInArray:exclusions withTranslations:[NSDictionary dictionary] captureAttachments:attachments];
 }
 
-- (NSString *)toXMLElementAs:(NSString *)rootName withTranslations:(NSDictionary *)keyTranslations {
-	return [self toXMLElementAs:rootName excludingInArray:[NSArray array] withTranslations:keyTranslations];
+- (NSString *)toXMLElementAs:(NSString *)rootName withTranslations:(NSDictionary *)keyTranslations captureAttachments:(NSMutableArray *) attachments{
+	return [self toXMLElementAs:rootName excludingInArray:[NSArray array] withTranslations:keyTranslations captureAttachments:[NSMutableArray array]];
 }
 
 /**
  * Override in complex objects to account for nested properties
  **/
 - (NSString *)toXMLElementAs:(NSString *)rootName excludingInArray:(NSArray *)exclusions
-			withTranslations:(NSDictionary *)keyTranslations {
-	return [[self properties] toXMLElementAs:rootName excludingInArray:exclusions withTranslations:keyTranslations andType:[[self class] xmlTypeFor:self]];
+			withTranslations:(NSDictionary *)keyTranslations captureAttachments: (NSMutableArray *) attachments{
+	return [[self properties] toXMLElementAs:rootName excludingInArray:exclusions withTranslations:keyTranslations andType:[[self class] xmlTypeFor:self] captureAttachments: attachments];
 }
 
 # pragma mark XML Serialization convenience methods
@@ -103,7 +103,7 @@
 /**
  * Override in objects that need special formatting before being printed to XML
  **/
-- (NSString *)toXMLValue {
+- (NSString *)toXMLValueWithAttachments:(NSMutableArray *)attachments {
 	return [NSString stringWithFormat:@"%@", self];
 }
 
