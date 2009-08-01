@@ -10,3 +10,4 @@
 #import "NSString+InflectionSupport.h"
 #import "NSObject+PropertySupport.h"
 #import "ORBinaryData.h"
+#import "NSDictionary+UrlEncoding.h"
