@@ -7,7 +7,7 @@
 //
 
 @interface NSDate (XMLSerializableSupport)
-- (NSString *)toXMLValue;
+- (NSString *)toXMLValueWithAttachments:(NSMutableArray *)attachments;
 + (NSDate *)fromXMLDateTimeString:(NSString *)xmlString;
 + (NSDate *)fromXMLDateString:(NSString *)xmlString;
 @end

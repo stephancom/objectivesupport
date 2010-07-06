@@ -12,13 +12,13 @@
 
 @implementation NSNumber(XMLSerializableSupport)
 
-- (NSString *)toXMLValue {
+- (NSString *)toXMLValueWithAttachments:(NSMutableArray *)attachments {
 	return [self stringValue];
 }
 
 - (NSString *)toXMLElementAs:(NSString *)rootName excludingInArray:(NSArray *)exclusions
-						withTranslations:(NSDictionary *)keyTranslations {
-	return [[self class] buildXmlElementAs:rootName withInnerXml:[self toXMLValue] andType:[[self class] xmlTypeFor:self]];
+						withTranslations:(NSDictionary *)keyTranslations captureAttachments:(NSMutableArray *)attachments{
+	return [[self class] buildXmlElementAs:rootName withInnerXml:[self toXMLValueWithAttachments:attachments] andType:[[self class] xmlTypeFor:self]];
 }
 
 

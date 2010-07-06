@@ -10,8 +10,9 @@
 @interface NSDictionary (XMLSerializableSupport)
 
 - (NSString *)toXMLElementAs:(NSString *)rootName excludingInArray:(NSArray *)exclusions
-						withTranslations:(NSDictionary *)keyTranslations andType:(NSString *)xmlType;
+						withTranslations:(NSDictionary *)keyTranslations andType:(NSString *)xmlType 
+						captureAttachments:(NSMutableArray *)attachments;
 
 - (NSString *)toXMLElementAs:(NSString *)rootName excludingInArray:(NSArray *)exclusions
-			withTranslations:(NSDictionary *)keyTranslations;
+			withTranslations:(NSDictionary *)keyTranslations captureAttachments:(NSMutableArray *)attachments;
 @end

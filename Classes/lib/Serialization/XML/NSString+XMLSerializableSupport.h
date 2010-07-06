@@ -12,9 +12,9 @@
 @interface NSString(XMLSerializableSupport) 
 
 + (NSString *)fromXmlString:(NSString *)aString;
-- (NSString *)toXMLValue;
+- (NSString *)toXMLValueWithAttachments:(NSMutableArray *)attachments;
 - (NSString *)toXMLElementAs:(NSString *)rootName excludingInArray:(NSArray *)exclusions
-			withTranslations:(NSDictionary *)keyTranslations;
+			withTranslations:(NSDictionary *)keyTranslations captureAttachments:(NSMutableArray *)attachments;
 
 
 @end

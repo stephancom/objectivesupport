@@ -14,13 +14,13 @@
 
 //FIXME we should have one formatter for the entire app
 
-- (NSString *)toXMLValue {
+- (NSString *)toXMLValueWithAttachments:(NSMutableArray *)attachments {
 	return [ ObjectiveResourceDateFormatter formatDate:self]; 
 }
 
 - (NSString *)toXMLElementAs:(NSString *)rootName excludingInArray:(NSArray *)exclusions
-						withTranslations:(NSDictionary *)keyTranslations {
-	return [[self class] buildXmlElementAs:rootName withInnerXml:[self toXMLValue] andType:[[self class] xmlTypeFor:self]];
+						withTranslations:(NSDictionary *)keyTranslations captureAttachments:(NSMutableArray *)attachments {
+	return [[self class] buildXmlElementAs:rootName withInnerXml:[self toXMLValueWithAttachments:attachments] andType:[[self class] xmlTypeFor:self]];
 }
 
 + (NSDate *)fromXMLDateTimeString:(NSString *)xmlString {

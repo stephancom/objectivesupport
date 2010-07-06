@@ -8,6 +8,7 @@
 
 #import "objc/runtime.h"
 #import "NSObject+PropertySupport.h"
+#import "ORBinaryData.h"
 
 @interface NSObject()
 
@@ -35,19 +36,15 @@
 		// Collect the property names
 		int i;
 		NSString *propName;
-		for (i = 0; i < outCount; i++)
-		{
+		for (i = 0; i < outCount; i++) {
 			objc_property_t * prop = propList + i;
 			NSString *type = [NSString stringWithCString:property_getAttributes(*prop) encoding:NSUTF8StringEncoding];
 			propName = [NSString stringWithCString:property_getName(*prop) encoding:NSUTF8StringEncoding];
-			
-			NSString *propertyType = [self getPropertyType:type];
-			if (nil != propertyType) {
-				[propertyNames setObject:propertyType forKey:propName];
+			if ([propName characterAtIndex:0]!='_') {
+                [propertyNames setObject:[self getPropertyType:type] forKey:propName];
 			}
-
-		}
-		
+			
+		} 		
 		free(propList);
 		currentClass = [currentClass superclass];
 	}

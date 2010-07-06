@@ -8,12 +8,14 @@
 
 #import "NSObject+XMLSerializableSupport.h"
 #import "NSDictionary+KeyTranslation.h"
+#import "ORBinaryData.h"
 
 @implementation NSDictionary (XMLSerializableSupport)
 
 
 - (NSString *)toXMLElementAs:(NSString *)rootName excludingInArray:(NSArray *)exclusions
-						withTranslations:(NSDictionary *)keyTranslations andType:(NSString *)xmlType {
+						withTranslations:(NSDictionary *)keyTranslations andType:(NSString *)xmlType
+						captureAttachments:(NSMutableArray *)attachments {
 
 	NSMutableString* elementValue = [NSMutableString string];
 	id value;
@@ -23,15 +25,15 @@
 		if(![exclusions containsObject:key]) {
 			value = [self valueForKey:key];
 			propertyRootName = [[self class] translationForKey:key withTranslations:keyTranslations];
-			[elementValue appendString:[value toXMLElementAs:propertyRootName]];
+			[elementValue appendString:[value toXMLElementAs:propertyRootName captureAttachments:attachments]];
 		}
 	}
 	return [[self class] buildXmlElementAs:rootName withInnerXml:elementValue andType:xmlType];
 }
 	
 - (NSString *)toXMLElementAs:(NSString *)rootName excludingInArray:(NSArray *)exclusions
-			withTranslations:(NSDictionary *)keyTranslations {
-	return [self toXMLElementAs:rootName excludingInArray:exclusions withTranslations:keyTranslations andType:nil];
+			withTranslations:(NSDictionary *)keyTranslations captureAttachments:(NSMutableArray *)attachments{
+	return [self toXMLElementAs:rootName excludingInArray:exclusions withTranslations:keyTranslations andType:nil captureAttachments:attachments];
 }
 
 @end

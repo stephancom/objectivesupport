@@ -158,4 +158,5 @@ static char encodingTable[64] = {
 	if( ! prefix || ! length || [self length] < length ) return NO;
 	return ( memcmp( [self bytes], prefix, length ) == 0 );
 }
+
 @end

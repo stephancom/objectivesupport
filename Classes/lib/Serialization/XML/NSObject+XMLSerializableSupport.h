@@ -17,7 +17,7 @@
  * Construct a string representation of the given value object, assuming
  * the given root element name , the NSObjects's toXmlValue is called.
  */
-+ (NSString *)buildXMLElementAs:(NSString *)rootName withValue:(NSObject *)value;
++ (NSString *)buildXMLElementAs:(NSString *)rootName withValue:(NSObject *)value captureAttachments:(NSMutableArray *)attachments;
 
 /**
  *
@@ -35,20 +35,27 @@
 
 /**
  * Construct the XML string representation of this particular object.
+ * Use the passed in mutable array to capture any file attachments.
  * Only construct the markup for the value of this object, don't assume
  * any naming.  For instance:
  *
- *   [myObject toXMLValue] //> @"xmlSerializedValue"
+ *   [myObject toXMLValueWithAttachments:[NSMutableArray array]] //> @"xmlSerializedValue"
  *
  * and not
  *
- *   [myObject toXMLValue] //> @"<value>xmlSerializedValue</value>"
+ *   [myObject toXMLValueWithAttachments:[NSMutableArray array]] //> @"<value>xmlSerializedValue</value>"
  *
  * For simple objects like strings, numbers etc this will be the text value of
  * the corresponding element.  For complex objects this can include further markup:
  *
- *   [myPersonObject toXMLValue] //> @"<first-name>Ryan</first-name><last-name>Daigle</last-name>"
+ *   [myPersonObject toXMLValueWithAttachments:[NSMutableArray array]] //> @"<first-name>Ryan</first-name><last-name>Daigle</last-name>"
+ *   
+ * If the model contain binary data, such as images, use the passed in mutable array to capture the file for uploading
+ *
+ *   [attachments addObject: self]
+ *   return (@"cid:%@", [self contentId]); // the ORBinaryData class adds the content id property specifically for this purpose
+ *
  */
-- (NSString *)toXMLValue;
+- (NSString *)toXMLValueWithAttachments:(NSMutableArray *)attachments;
 
 @end
